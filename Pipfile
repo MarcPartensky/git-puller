@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pika = "*"
+flask = "*"
 
 [dev-packages]
 neovim = "*"
