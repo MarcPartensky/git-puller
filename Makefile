@@ -1,6 +1,6 @@
 start:
 	pipenv run python .
-up:
+up: build
 	docker-compose up -d
 push: build
 	docker-compose push git-puller
