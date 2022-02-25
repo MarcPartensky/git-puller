@@ -3,11 +3,15 @@ services:
   rabbit:
     image: rabbitmq
     restart: unless-stopped
+    ports:
+      - "5762:5762"
   git-puller:
     image: marcpartensky/git-puller
     restart: unless-stopped
     build:
       context: .
       dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
     env_file:
       - .env
