@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  rabbit:
+    image: rabbitmq
+    restart: unless-stopped
+  git-puller:
+    image: marcpartensky/git-puller
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./Dockerfile
