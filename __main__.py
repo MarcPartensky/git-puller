@@ -12,10 +12,10 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 
 load_dotenv()
-HTTP_HOST = os.environ["HTTP_HOST"] or "localhost"
-HTTP_PORT = int(os.environ["HTTP_PORT"] or 8000)
-RABBIT_HOST = os.environ["RABBIT_HOST"] or "localhost"
-RABBIT_PORT = os.environ["RABBIT_PORT"] or "5672"
+HTTP_HOST = os.environ.get("HTTP_HOST") or "localhost"
+HTTP_PORT = int(os.environ.get("HTTP_PORT") or 8000)
+RABBIT_HOST = os.environ.get("RABBIT_HOST") or "localhost"
+RABBIT_PORT = os.environ.get("RABBIT_PORT") or "5672"
 
 app =  FastAPI()
 
