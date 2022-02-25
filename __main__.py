@@ -7,6 +7,7 @@ A RabbitMQ client and HTTP server.
 
 import os
 import pika
+import uvicorn
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
@@ -22,20 +23,20 @@ def get_connexion():
     return pika.BlockingConnection(pika.ConnectionParameters(RABBIT_HOST+":"+RABBIT_PORT))
 
 
-@app.route("/push/{repo}", methods=["GET"])
-def webhook():
-    repo = requests
+@app.get("/{repo}")
+def webhook(repo: str):
+    """Webhook to receive push notifications to send to the Rabbit."""
+    print(f"Push : {repo}")
     with get_connexion() as connection:
         channel.basic_publish(
                 exchange='',
                 routing_key='push',
-                body='repod!'
+                body=repo
                 )
-# print(" [x] Sent 'Hello World!'")
 
 if __name__ == "__main__":
     # Create the push queue
     with get_connexion() as connection:
         channel = connection.channel()
         channel.queue_declare(queue='push')
-    app.run(host=HTTP_HOST, port=HTTP_PORT)
+    uvicorn.run(app, host=HTTP_HOST, port=HTTP_PORT)
