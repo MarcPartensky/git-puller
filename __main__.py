@@ -20,8 +20,13 @@ RABBIT_PORT = os.environ.get("RABBIT_PORT") or "5672"
 app =  FastAPI()
 
 def get_connexion():
+    """Return the RabbitMQ connexion object."""
     return pika.BlockingConnection(pika.ConnectionParameters(RABBIT_HOST+":"+RABBIT_PORT))
 
+@app.get("/live")
+def healthcheck():
+    """Health check for Docker."""
+    return "OK"
 
 @app.get("/{repo}")
 def webhook(repo: str):
